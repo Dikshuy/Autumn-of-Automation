@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+     <!--<arg name="world_name" value="$(find gazebo_ros)/worlds/model.world"/>-->
+     <arg name="paused" value="false"/>
+     <arg name="use_sim_time" value="true"/>
+     <arg name="gui" value="true"/>
+     <arg name="headless" value="false"/>
+     <arg name="debug" value="false"/>
+    </include>
+
+    <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find umic)/urdf/umic_bot.xacro'"/>
+
+    <arg name="x" default="0"/>
+    <arg name="y" default="0"/>
+    <arg name="z" default="0.2"/>
+
+    <node name="mybot_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
+          args="-urdf -param robot_description -model umic_bot -x $(arg x) -y $(arg y) -z $(arg z)" />
+
+</launch>
